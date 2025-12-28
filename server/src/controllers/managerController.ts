@@ -56,3 +56,32 @@ export const createManager = async (
       .json({ message: `Error retrieving manager: ${error.message}` });
   }
 };
+
+export const updateManager = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { cognitoId } = req.params;
+    const { name, email, phoneNumber } = req.body;
+
+    const updateManager = await prisma.manager.update({
+      where: { cognitoId },
+      data: {
+        name,
+        email,
+        phoneNumber,
+      },
+    });
+
+    if (updateManager) {
+      res.json(updateManager);
+    } else {
+      res.status(404).json({ message: "ManagerupdateManager not found" });
+    }
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error updating manager: ${error.message}` });
+  }
+};
