@@ -1,11 +1,12 @@
+"use client";
 import { useGetAuthUserQuery } from "@/state/api";
 import { useParams } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import ImagePreviews from "./ImagePreviews";
-import PropertyOverview from "./PropertyOverview";
 import PropertyDetails from "./PropertyDetails";
 import ContactWidget from "./ContactWidget";
 import ApplicationModal from "./ApplicationModal";
+import PropertyOverview from "./PropertyOverview";
 
 const SingleListing = () => {
   const { id } = useParams();

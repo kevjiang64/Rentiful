@@ -18,7 +18,6 @@ const TenantSettings = () => {
   };
 
   const handleSubmit = async (data: typeof initialData) => {
-    console.log("in");
     await updateTenant({
       cognitoId: authUser?.cognitoInfo?.userId,
       ...data,

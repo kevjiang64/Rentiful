@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { property } from "zod";
 import Image from "next/image";
 import { Mail, MapPin, PhoneCall } from "lucide-react";
 

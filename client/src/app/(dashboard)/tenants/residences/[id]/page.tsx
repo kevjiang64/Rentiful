@@ -1,31 +1,31 @@
 "use client";
 
-import LoadingComponent from "@/components/Loading";
-import { TableHeader } from "@/components/ui/table";
+import Loading from "@/components/Loading";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   useGetAuthUserQuery,
   useGetLeasesQuery,
   useGetPaymentsQuery,
   useGetPropertyQuery,
 } from "@/state/api";
-import { Property, Lease, Payment } from "@/types/prismaTypes";
+import { Lease, Payment, Property } from "@/types/prismaTypes";
 import {
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@aws-amplify/ui-react";
-import {
+  ArrowDownToLineIcon,
+  Check,
   CreditCard,
-  Mail,
+  Download,
   Edit,
+  FileText,
+  Mail,
   MapPin,
   User,
-  Download,
-  Table,
-  FileText,
-  Check,
-  ArrowDownToLineIcon,
 } from "lucide-react";
 import { useParams } from "next/navigation";
 import React from "react";
@@ -226,10 +226,9 @@ const BillingHistory = ({ payments }: { payments: Payment[] }) => {
   );
 };
 
-export const Residence = () => {
+const Residence = () => {
   const { id } = useParams();
   const { data: authUser } = useGetAuthUserQuery();
-
   const {
     data: property,
     isLoading: propertyLoading,
@@ -245,9 +244,8 @@ export const Residence = () => {
     { skip: !leases?.[0]?.id }
   );
 
-  if (propertyLoading || leasesLoading || paymentsLoading)
-    return <LoadingComponent />;
-  if (!property || propertyError) return <div>Error Loading property</div>;
+  if (propertyLoading || leasesLoading || paymentsLoading) return <Loading />;
+  if (!property || propertyError) return <div>Error loading property</div>;
 
   const currentLease = leases?.find(
     (lease) => lease.propertyId === property.id
@@ -267,3 +265,5 @@ export const Residence = () => {
     </div>
   );
 };
+
+export default Residence;

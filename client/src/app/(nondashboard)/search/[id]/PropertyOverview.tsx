@@ -10,9 +10,11 @@ const PropertyOverview = ({ propertyId }: PropertyOverviewProps) => {
   } = useGetPropertyQuery(propertyId);
 
   if (isLoading) return <>Loading...</>;
+
   if (isError || !property) {
     return <>Property not Found</>;
   }
+
   return (
     <div>
       {/* Header */}
@@ -105,5 +107,4 @@ const PropertyOverview = ({ propertyId }: PropertyOverviewProps) => {
     </div>
   );
 };
-
 export default PropertyOverview;

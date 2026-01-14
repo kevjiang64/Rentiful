@@ -1,3 +1,4 @@
+"use client";
 import {
   useAddFavoritePropertyMutation,
   useGetAuthUserQuery,
@@ -7,8 +8,8 @@ import {
 } from "@/state/api";
 import { useAppSelector } from "@/state/redux";
 import { Property } from "@/types/prismaTypes";
-import { Card } from "@/components/Card";
 import CardCompact from "@/components/CardCompact";
+import Card from "@/components/Card";
 
 const Listings = () => {
   const { data: authUser } = useGetAuthUserQuery();

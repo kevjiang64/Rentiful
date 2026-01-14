@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import Image from "next/image";
+"use client";
 import { Bath, Bed, Heart, House, Star } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-export const Card = ({
+import { useState } from "react";
+
+const Card = ({
   property,
   isFavorite,
   onFavoriteToggle,
@@ -12,6 +14,7 @@ export const Card = ({
   const [imgSrc, setImgSrc] = useState(
     property.photoUrls?.[0] || "/placeholder.jpg"
   );
+
   return (
     <div className="bg-white rounded-xl overflow-hidden shadow-lg w-full mb-5">
       <div className="relative">
@@ -101,3 +104,5 @@ export const Card = ({
     </div>
   );
 };
+
+export default Card;

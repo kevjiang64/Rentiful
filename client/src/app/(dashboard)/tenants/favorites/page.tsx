@@ -1,4 +1,5 @@
-import { Card } from "@/components/Card";
+"use client";
+import Card from "@/components/Card";
 import Header from "@/components/Header";
 import Loading from "@/components/Loading";
 import {
@@ -6,7 +7,6 @@ import {
   useGetPropertiesQuery,
   useGetTenantQuery,
 } from "@/state/api";
-import React from "react";
 
 const Favorites = () => {
   const { data: authUser } = useGetAuthUserQuery();
@@ -48,7 +48,7 @@ const Favorites = () => {
         ))}
       </div>
       {(!favoriteProperties || favoriteProperties?.length === 0) && (
-        <p>You don&pos;t have any favorited properties</p>
+        <p>You don&lsquo;t have any favorited properties</p>
       )}
     </div>
   );

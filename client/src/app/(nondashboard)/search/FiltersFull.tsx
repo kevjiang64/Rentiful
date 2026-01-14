@@ -1,29 +1,30 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Slider } from "@/components/ui/slider";
-import { PropertyTypeIcons, AmenityIcons } from "@/lib/constants";
-import { cleanParams, cn, formatEnumString } from "@/lib/utils";
 import { FiltersState, initialState, setFilters } from "@/state";
 import { useAppSelector } from "@/state/redux";
-import { Label } from "@aws-amplify/ui-react";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@radix-ui/react-select";
-import { debounce } from "lodash";
-import { Search } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { debounce } from "lodash";
+import { cleanParams, cn, formatEnumString } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
+import { AmenityIcons, PropertyTypeIcons } from "@/lib/constants";
+import { Slider } from "@/components/ui/slider";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 
 const FiltersFull = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
   const filters = useAppSelector((state) => state.global.filters);
+  const [localFilters, setLocalFilters] = useState(initialState.filters);
   const isFiltersFullOpen = useAppSelector(
     (state) => state.global.isFiltersFullOpen
   );
@@ -39,7 +40,7 @@ const FiltersFull = () => {
       );
     });
 
-    router.push(`${pathname} ? ${updatedSearchParams.toString()}`);
+    router.push(`${pathname}?${updatedSearchParams.toString()}`);
   });
 
   const handleSubmit = () => {
@@ -65,26 +66,27 @@ const FiltersFull = () => {
   const handleLocationSearch = async () => {
     try {
       const response = await fetch(
-        `https://api.mapbox.com.geocoding.v5.mapbox.places/${encodeURIComponent(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
           localFilters.location
         )}.json?access_token=${
           process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
         }&fuzzyMatch=true`
       );
       const data = await response.json();
-
       if (data.features && data.features.length > 0) {
         const [lng, lat] = data.features[0].center;
-        setLocalFilters((prev) => ({ ...prev, coordinates: [lng, lat] }));
+        setLocalFilters((prev) => ({
+          ...prev,
+          coordinates: [lng, lat],
+        }));
       }
     } catch (err) {
       console.error("Error search location:", err);
     }
   };
 
-  if (isFiltersFullOpen) return null;
+  if (!isFiltersFullOpen) return null;
 
-  const [localFilters, setLocalFilters] = useState(initialState.filters);
   return (
     <div className="bg-white rounded-lg px-4 h-full overflow-auto pb-10">
       <div className="flex flex-col space-y-6">
