@@ -2,12 +2,12 @@ import { Request, Response } from "express";
 import { PrismaClient, Prisma } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import { S3Client } from "@aws-sdk/client-s3";
-import { Upload } from "@aws-sdk/lib-storage";
 import { Location } from "@prisma/client";
+import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
 
-//ORM to get database information
 const prisma = new PrismaClient();
+
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
 });
@@ -75,7 +75,7 @@ export const getProperties = async (
 
     if (propertyType && propertyType !== "any") {
       whereConditions.push(
-        Prisma.sql`p.propertyType = ${propertyType}::"PropertyType"`
+        Prisma.sql`p."propertyType" = ${propertyType}::"PropertyType"`
       );
     }
 
@@ -140,7 +140,6 @@ export const getProperties = async (
       }
     `;
 
-    //Grab the properties
     const properties = await prisma.$queryRaw(completeQuery);
 
     res.json(properties);
@@ -235,13 +234,11 @@ export const createProperty = async (
         limit: "1",
       }
     ).toString()}`;
-
     const geocodingResponse = await axios.get(geocodingUrl, {
       headers: {
-        "User-Agent": "Rentiful (kevinjiang64@hotmail.com)",
+        "User-Agent": "RealEstateApp (justsomedummyemail@gmail.com",
       },
     });
-
     const [longitude, latitude] =
       geocodingResponse.data[0]?.lon && geocodingResponse.data[0]?.lat
         ? [
@@ -288,9 +285,9 @@ export const createProperty = async (
     });
 
     res.status(201).json(newProperty);
-  } catch (error: any) {
+  } catch (err: any) {
     res
       .status(500)
-      .json({ message: `Error creating property: ${error.message}` });
+      .json({ message: `Error creating property: ${err.message}` });
   }
 };
