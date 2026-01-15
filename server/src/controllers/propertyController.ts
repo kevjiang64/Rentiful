@@ -5,7 +5,6 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import { Location } from "@prisma/client";
 import axios from "axios";
-import { property } from "lodash";
 
 //ORM to get database information
 const prisma = new PrismaClient();
@@ -50,7 +49,7 @@ export const getProperties = async (
 
     if (priceMax) {
       whereConditions.push(
-        Prisma.sql`p."pricePerMonth" <= ${Number(priceMin)}`
+        Prisma.sql`p."pricePerMonth" <= ${Number(priceMax)}`
       );
     }
 
@@ -183,13 +182,12 @@ export const getProperty = async (
           },
         },
       };
-
       res.json(propertyWithCoordinates);
     }
-  } catch (error: any) {
+  } catch (err: any) {
     res
       .status(500)
-      .json({ message: `Error retrieving property: ${error.message}` });
+      .json({ message: `Error retrieving property: ${err.message}` });
   }
 };
 

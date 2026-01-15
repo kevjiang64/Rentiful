@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
-import { property } from "lodash";
 
 //ORM to get database information
 const prisma = new PrismaClient();

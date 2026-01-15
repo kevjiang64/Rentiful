@@ -36,7 +36,7 @@ app.use("/managers", authMiddleware(["manager"]), managerRoutes);
 app.use("/leases", leaseRoutes);
 app.use("/applications", applicationRoutes);
 
-const port = process.env.PORT || 3002;
+const port = Number(process.env.PORT) || 3002;
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });

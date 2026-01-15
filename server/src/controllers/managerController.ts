@@ -46,11 +46,7 @@ export const createManager = async (
       },
     });
 
-    if (manager) {
-      res.json(manager);
-    } else {
-      res.status(404).json({ message: "Manager not found" });
-    }
+    res.status(201).json(manager);
   } catch (error: any) {
     res
       .status(500)
@@ -75,11 +71,7 @@ export const updateManager = async (
       },
     });
 
-    if (updateManager) {
-      res.json(updateManager);
-    } else {
-      res.status(404).json({ message: "ManagerupdateManager not found" });
-    }
+    res.json(updateManager);
   } catch (error: any) {
     res
       .status(500)

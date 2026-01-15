@@ -46,11 +46,7 @@ export const createTenant = async (
       },
     });
 
-    if (tenant) {
-      res.json(tenant);
-    } else {
-      res.status(404).json({ message: "Tenant not found" });
-    }
+    res.status(201).json(tenant);
   } catch (error: any) {
     res
       .status(500)
@@ -75,11 +71,7 @@ export const updateTenant = async (
       },
     });
 
-    if (updateTenant) {
-      res.json(updateTenant);
-    } else {
-      res.status(404).json({ message: "Tenant not found" });
-    }
+    res.json(updateTenant);
   } catch (error: any) {
     res
       .status(500)
