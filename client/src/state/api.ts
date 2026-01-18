@@ -36,6 +36,7 @@ export const api = createApi({
     "Applications",
   ],
   endpoints: (build) => ({
+    //Getting user info from cognito
     getAuthUser: build.query<User, void>({
       queryFn: async (_, _queryApi, _extraoptions, fetchWithBQ) => {
         try {
@@ -49,6 +50,7 @@ export const api = createApi({
               ? `/managers/${user.userId}`
               : `/tenants/${user.userId}`;
 
+          //Check if the user already exists
           let userDetailsResponse = await fetchWithBQ(endpoint);
 
           //If user doesn't exist, create new user
@@ -60,10 +62,11 @@ export const api = createApi({
               user,
               idToken,
               userRole,
-              fetchWithBQ
+              fetchWithBQ,
             );
           }
 
+          //Return the data from user
           return {
             data: {
               cognitoInfo: { ...user },
@@ -254,7 +257,7 @@ export const api = createApi({
       async onQueryStarted(_, { queryFulfilled }) {
         await withToast(queryFulfilled, {
           success: "Property created successfully!",
-          error: "Failed to create a property.",
+          error: "Failed to create property.",
         });
       },
     }),

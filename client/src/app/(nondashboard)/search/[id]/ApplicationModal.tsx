@@ -1,5 +1,4 @@
 import { CustomFormField } from "@/components/FormField";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,7 +9,9 @@ import { ApplicationFormData, applicationSchema } from "@/lib/schemas";
 import { useCreateApplicationMutation, useGetAuthUserQuery } from "@/state/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 
 const ApplicationModal = ({
   isOpen,
@@ -33,7 +34,7 @@ const ApplicationModal = ({
   const onSubmit = async (data: ApplicationFormData) => {
     if (!authUser || authUser.userRole !== "tenant") {
       console.error(
-        "you must be logged in as a tenant to submit an application"
+        "you must be logged in as a tenant to submit an application",
       );
       return;
     }

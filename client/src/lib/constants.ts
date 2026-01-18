@@ -134,3 +134,38 @@ export const testUsers = {
   },
   managerRole: "manager",
 };
+
+export const FeatureTitles: string[] = [
+  "Trustworthy and Verified Listings",
+  "Browse Rental Listings with Ease",
+  "Simplify Your Rental Search With Advanced",
+];
+
+export const FeatureDescriptions: string[] = [
+  "Discover the best rental options with user reviews and ratings.",
+  "Get access to user reviews and ratings for a better understanding of rental options.",
+  "Find trustworthy and verified rental listings to ensure a hassle-free experience.",
+];
+
+export const FeatureLinksText: string[] = ["Explore", "Search", "Discover"];
+export const FeatureLinksHref: string[] = ["/explore", "/search", "/discover"];
+export const DiscoverSections = [
+  {
+    imageSrc: "/landing-icon-wand.png",
+    title: "Search for Properties",
+    description:
+      "Browse through our extensive collection of rental properties in your desired location.",
+  },
+  {
+    imageSrc: "/landing-icon-calendar.png",
+    title: "Book Your Rental",
+    description:
+      "Once you've found the perfect rental property, easily book it online with just a few clicks.",
+  },
+  {
+    imageSrc: "/landing-icon-wand.png",
+    title: "Enjoy Your New Home",
+    description:
+      "Mobe into your rew rental property and start enjoying your dream home.",
+  },
+];

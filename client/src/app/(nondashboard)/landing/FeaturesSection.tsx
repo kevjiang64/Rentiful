@@ -1,4 +1,9 @@
 "use client";
+import {
+  FeatureDescriptions,
+  FeatureLinksText,
+  FeatureTitles,
+} from "@/lib/constants";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +15,7 @@ const containerVariant = {
     y: 0,
     transition: {
       duration: 0.5,
-      staggerChildren: 0.2,
+      staggerChildren: 0.3,
     },
   },
 };
@@ -76,21 +81,9 @@ const FeaturesSection = () => {
             <motion.div key={index} variants={itemVariants}>
               <FeatureCard
                 imageSrc={`/landing-search${3 - index}.png`}
-                title={
-                  [
-                    "Trustworthy and Verified Listings",
-                    "Browse Rental Listings with Ease",
-                    "Simplify Your Rental Search With Advanced",
-                  ][index]
-                }
-                description={
-                  [
-                    "Discover the best rental options with user reviews and ratings.",
-                    "Get access to user reviews and ratings for a better understanding of rental options.",
-                    "Find trustworthy and verified rental listings to ensure a hassle-free experience.",
-                  ][index]
-                }
-                linkText={["Explore", "Search", "Discover"][index]}
+                title={FeatureTitles[index]}
+                description={FeatureDescriptions[index]}
+                linkText={FeatureLinksText[index]}
                 linkHref={["/explore", "/search", "/discover"][index]}
               />
             </motion.div>

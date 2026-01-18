@@ -140,6 +140,7 @@ const formFields = {
 };
 
 const Auth = ({ children }: { children: React.ReactNode }) => {
+  //Wrapped in Authenciator.provider from Amplify on providers.tsx
   const { user } = useAuthenticator((context) => [context.user]);
   const router = useRouter();
   const pathName = usePathname();
@@ -149,7 +150,7 @@ const Auth = ({ children }: { children: React.ReactNode }) => {
     pathName.startsWith("/manager") || pathName.startsWith("/tenants");
 
   useEffect(() => {
-    //If user is authenticated and on signup/signin page
+    //If user is authenticated and on signup/signin page, redirect away from auth pages
     if (user && isAuthPage) {
       router.push("/");
     }

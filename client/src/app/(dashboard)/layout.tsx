@@ -14,6 +14,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    //If userRole not at the correct page
     if (authUser) {
       const userRole = authUser.userRole?.toLowerCase();
 
@@ -25,7 +26,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           userRole === "manager"
             ? "/managers/properties"
             : "/tenants/favorites",
-          { scroll: false }
+          { scroll: false },
         );
       } else {
         setIsLoading(false);
