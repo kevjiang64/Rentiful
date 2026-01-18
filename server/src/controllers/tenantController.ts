@@ -32,7 +32,7 @@ export const getTenant = async (req: Request, res: Response): Promise<void> => {
 
 export const createTenant = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { cognitoId, name, email, phoneNumber } = req.body;
@@ -56,7 +56,7 @@ export const createTenant = async (
 
 export const updateTenant = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -81,7 +81,7 @@ export const updateTenant = async (
 
 export const getCurrentResidences = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -111,7 +111,7 @@ export const getCurrentResidences = async (
             },
           },
         };
-      })
+      }),
     );
 
     res.json(residencesWithFormattedLocation);
@@ -124,7 +124,7 @@ export const getCurrentResidences = async (
 
 export const addFavoriteProperty = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { cognitoId, propertyId } = req.params;
@@ -137,6 +137,7 @@ export const addFavoriteProperty = async (
     const existingFavorites = tenant?.favorites || [];
 
     if (!existingFavorites.some((fav) => fav.id === propertyIdNumber)) {
+      //Connect is prima syntax to be able to add favorite id to tenant
       const updatedTenant = await prisma.tenant.update({
         where: { cognitoId },
         data: {
@@ -162,11 +163,12 @@ export const addFavoriteProperty = async (
 
 export const removeFavoriteProperty = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { cognitoId, propertyId } = req.params;
     const propertyIdNumber = Number(propertyId);
+    //Connect is prima syntax to be able to add favorite id to tenant
     const updatedTenant = await prisma.tenant.update({
       where: { cognitoId },
       data: {

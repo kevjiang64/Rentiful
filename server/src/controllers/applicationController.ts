@@ -6,13 +6,14 @@ const prisma = new PrismaClient();
 
 export const listApplications = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { userId, userType } = req.query;
 
     let whereClause = {};
 
+    //Check who wants to list it
     if (userId && userType) {
       if (userType === "tenant") {
         whereClause = { tenantCognitoId: String(userId) };
@@ -38,6 +39,7 @@ export const listApplications = async (
       },
     });
 
+    //If he started paying before today, set the payment to next month + 1 else set payment to starting date
     function calculateNextPaymentDate(startDate: Date): Date {
       const today = new Date();
       const nextPayment = new Date(startDate);
@@ -75,7 +77,7 @@ export const listApplications = async (
               }
             : null,
         };
-      })
+      }),
     );
 
     res.json(formattedApplications);
@@ -88,7 +90,7 @@ export const listApplications = async (
 
 export const createApplication = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const {
@@ -118,7 +120,7 @@ export const createApplication = async (
         data: {
           startDate: new Date(), // Today
           endDate: new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1)
+            new Date().setFullYear(new Date().getFullYear() + 1),
           ), // 1 year from today
           rent: property.pricePerMonth,
           deposit: property.securityDeposit,
@@ -170,12 +172,11 @@ export const createApplication = async (
 
 export const updateApplicationStatus = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { id } = req.params;
     const { status } = req.body;
-    console.log("status:", status);
 
     const application = await prisma.application.findUnique({
       where: { id: Number(id) },
@@ -195,7 +196,7 @@ export const updateApplicationStatus = async (
         data: {
           startDate: new Date(),
           endDate: new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1)
+            new Date().setFullYear(new Date().getFullYear() + 1),
           ),
           rent: application.property.pricePerMonth,
           deposit: application.property.securityDeposit,

@@ -1,6 +1,5 @@
 import express from "express";
 import { authMiddleware } from "../middleware/authMiddleware";
-import { getLeases, getLeasesPayments } from "../controllers/leaseController";
 import {
   createApplication,
   listApplications,

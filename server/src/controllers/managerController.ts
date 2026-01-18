@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export const getManager = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     //Get id from endpoint
@@ -32,7 +32,7 @@ export const getManager = async (
 
 export const createManager = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { cognitoId, name, email, phoneNumber } = req.body;
@@ -56,7 +56,7 @@ export const createManager = async (
 
 export const updateManager = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -81,7 +81,7 @@ export const updateManager = async (
 
 export const getManagerProperties = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -111,7 +111,7 @@ export const getManagerProperties = async (
             },
           },
         };
-      })
+      }),
     );
 
     res.json(propertiesWithFormattedLocation);
